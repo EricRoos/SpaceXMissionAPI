@@ -1,0 +1,7 @@
+alias SpacexMissionApi.Repo
+alias SpacexMissionApi.Booster
+alias SpacexMissionApi.Vehicle
+alias SpacexMissionApi.FalconNine
+alias SpacexMissionApi.FalconHeavy
+alias SpacexMissionApi.LandingZone
+alias SpacexMissionApi.FalconNineBuilder
