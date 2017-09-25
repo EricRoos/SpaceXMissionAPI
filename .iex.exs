@@ -1,6 +1,7 @@
 alias SpacexMissionApi.Repo
 alias SpacexMissionApi.Booster
 alias SpacexMissionApi.Vehicle
+alias SpacexMissionApi.Image
 alias SpacexMissionApi.FalconNine
 alias SpacexMissionApi.FalconHeavy
 alias SpacexMissionApi.LandingZone

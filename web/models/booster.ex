@@ -1,10 +1,10 @@
 defmodule SpacexMissionApi.Booster do
   use SpacexMissionApi.Web, :model
-
   schema "boosters" do
     field :core_number, :string
     field :status, :string
     field :version, :string
+    many_to_many :images, SpacexMissionApi.Image, join_through: "booster_images"
 
     timestamps()
   end

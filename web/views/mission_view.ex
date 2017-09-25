@@ -10,9 +10,10 @@ defmodule SpacexMissionApi.MissionView do
   end
 
   def render("mission.json", %{mission: mission}) do
-    %{id: mission.id,
+    %{
+      id: mission.slug,
       name: mission.name,
-      vehicle: render_one(mission.vehicle, SpacexMissionApi.VehicleView, "vehicle.json"),
-      landing_zone_id: mission.landing_zone_id}
+      vehicle: render_one(mission.vehicle, SpacexMissionApi.VehicleView, "vehicle.json")
+    }
   end
 end

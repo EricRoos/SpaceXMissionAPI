@@ -25,11 +25,12 @@ Repo.delete_all LandingZone
 
 defmodule BoosterMocker do
   def create_booster(core_number, version, status) do
-    Repo.insert! %Booster{
+    b = Booster.changeset(%Booster{},%{
       core_number: core_number,
       version: version,
       status: status
-    }
+    })
+    Repo.insert(b)
   end
 end
 
@@ -48,11 +49,12 @@ defmodule MissionMocker do
     end
 
 
-    Repo.insert! %Mission{
+    cs = Mission.changeset(%Mission{
       vehicle_id: vehicle.id,
       landing_zone_id: lz_id,
       name: name
-    }
+    })
+    Repo.insert(cs)
   end
 end
 

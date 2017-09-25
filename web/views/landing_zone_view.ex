@@ -9,11 +9,8 @@ defmodule SpacexMissionApi.LandingZoneView do
     %{data: render_one(landing_zone, SpacexMissionApi.LandingZoneView, "landing_zone.json")}
   end
 
-  def render("landing_zone.json", %{landing_zone: landing_zone_image}) do
-    landing_zone = elem(landing_zone_image, 0)
-    images = elem(landing_zone_image, 1)
+  def render("landing_zone.json", %{landing_zone: landing_zone}) do
     %{id: landing_zone.id,
-      name: landing_zone.name,
-      images: images}
+      name: landing_zone.name}
   end
 end

@@ -4,7 +4,12 @@ defmodule SpacexMissionApi.VehicleController do
   alias SpacexMissionApi.Vehicle
 
   def index(conn, _params) do
-    vehicles = Repo.all(Vehicle)
+    vehicles = Repo.all(
+      from vehicle in Vehicle,
+        left_join: booster_one in assoc(vehicle, :booster_one),
+        left_join: booster_one_images in assoc(booster_one, :images),
+        preload: [booster_one: {booster_one, images: booster_one_images}]
+    )
     render(conn, "index.json", vehicles: vehicles)
   end
 
@@ -25,7 +30,7 @@ defmodule SpacexMissionApi.VehicleController do
   end
 
   def show(conn, %{"id" => id}) do
-    vehicle = Repo.get!(Vehicle, id)
+    vehicle = Repo.get_by(Vehicle, slug: id)
     render(conn, "show.json", vehicle: vehicle)
   end
 

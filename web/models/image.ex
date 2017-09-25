@@ -1,20 +1,19 @@
 defmodule SpacexMissionApi.Image do
   use SpacexMissionApi.Web, :model
-  alias SpacexMissionApi.Image
   alias SpacexMissionApi.Repo
+  alias SpacexMissionApi.Booster
+
   schema "images" do
-    field :imageable_type, :string
     field :imageable_id, :integer
     field :source, :string
     field :source_type, :string
-
     timestamps()
   end
 
   def attach(imageable, source) do
     table_name = table_name_for(imageable)
-    cs = Image.changeset(%Image{}, %{"imageable_type" => table_name, "imageable_id" => imageable.id, "source" => source, "source_type" => "url" })
-    Repo.insert(cs)
+    #cs = Image.changeset(%Image{}, %{"imageable_type" => table_name, "imageable_id" => imageable.id, "source" => source, "source_type" => "url" })
+    #Repo.insert(cs)
   end
 
   def find_for(imageables) when is_list(imageables) do
@@ -23,7 +22,7 @@ defmodule SpacexMissionApi.Image do
     |> Enum.map(fn i -> for_many(elem(i,0), elem(i,1)) end)
     |> List.flatten
 
-    Enum.map(imageables, fn i -> {i, Enum.filter(images, fn image -> matches_imageable(image, i ) end)} end)
+    Enum.map(imageables, fn i -> %{i | images:  Enum.filter(images, fn image -> matches_imageable(image, i ) end)} end)
 
   end
 

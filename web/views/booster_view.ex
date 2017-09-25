@@ -9,14 +9,12 @@ defmodule SpacexMissionApi.BoosterView do
     %{data: render_one(booster, SpacexMissionApi.BoosterView, "booster.json")}
   end
 
-  def render("booster.json", %{booster: booster_image}) do
-    booster = elem(booster_image, 0)
-    images = elem(booster_image, 1)
+  def render("booster.json", %{booster: booster}) do
     %{
       core_number: booster.core_number,
       status: booster.status,
       version: booster.version,
-      images: render_many(images, SpacexMissionApi.ImageView, "image.json")
+      images: render_many(booster.images, SpacexMissionApi.ImageView, "image.json")
     }
   end
 end

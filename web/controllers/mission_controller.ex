@@ -9,7 +9,8 @@ defmodule SpacexMissionApi.MissionController do
       from mission in Mission,
         left_join: vehicle in assoc(mission, :vehicle),
         left_join: booster_one in assoc(vehicle, :booster_one),
-        preload: [vehicle: {vehicle, booster_one: booster_one}]
+        left_join: images in assoc(booster_one, :images),
+        preload: [vehicle: {vehicle, booster_one: {booster_one, images: images}}]
     )
     render(conn, "index.json", missions: missions)
   end
@@ -31,7 +32,15 @@ defmodule SpacexMissionApi.MissionController do
   end
 
   def show(conn, %{"id" => id}) do
-    mission = Repo.get!(Mission, id)
+    [ mission | _ ] = Repo.all(
+      from mission in Mission,
+        left_join: vehicle in assoc(mission, :vehicle),
+        left_join: booster_one in assoc(vehicle, :booster_one),
+        left_join: images in assoc(booster_one, :images),
+        where: mission.slug == ^id,
+        limit: 1,
+        preload: [vehicle: {vehicle, booster_one: {booster_one, images: images}}]
+    )
     render(conn, "show.json", mission: mission)
   end
 

@@ -5,9 +5,11 @@ defmodule SpacexMissionApi.BoosterController do
   alias SpacexMissionApi.Image
 
   def index(conn, _params) do
-    boosters = Repo.all(Booster)
-    |> Image.find_for
-
+    boosters = Repo.all(
+      from booster in Booster,
+        left_join: images in assoc(booster, :images),
+        preload: [images: images]
+    )
     render(conn, "index.json", boosters: boosters)
   end
 
