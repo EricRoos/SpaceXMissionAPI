@@ -6,5 +6,6 @@ RUN mix local.hex --force && \
 RUN mkdir /app
 WORKDIR /app
 ADD . $app
+RUN mkdir /app/priv/static
 RUN mix deps.get
 CMD ["mix", "phx.server"]
