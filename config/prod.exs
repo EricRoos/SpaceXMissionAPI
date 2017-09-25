@@ -54,7 +54,7 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :spacex_mission_api, SpacexMissionApi.Endpoint, server: true
+     config :spacex_mission_api, SpacexMissionApi.Endpoint, server: true
 #
 
 # Finally import the config/prod.secret.exs
