@@ -5,12 +5,13 @@ defmodule SpacexMissionApi.BoosterController do
   alias SpacexMissionApi.Image
 
   def index(conn, _params) do
-    boosters = Repo.all(
-      from booster in Booster,
-        left_join: images in assoc(booster, :images),
-        preload: [images: images]
-    )
-    render(conn, "index.json", boosters: boosters)
+    with {:ok, query , filter_values} <- Booster.apply_filters(conn),
+         boosters <-  Repo.all(
+                        from b in query,
+                          left_join: images in assoc(b, :images),
+                          preload: [images: images]
+         ),
+    do: render(conn, "index.json", boosters: boosters)
   end
 
   def create(conn, %{"booster" => booster_params}) do

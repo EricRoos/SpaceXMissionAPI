@@ -1,5 +1,6 @@
 defmodule SpacexMissionApi.BoosterView do
   use SpacexMissionApi.Web, :view
+  import SpacexMissionApi.Router.Helpers
 
   def render("index.json", %{boosters: boosters}) do
     %{data: render_many(boosters, SpacexMissionApi.BoosterView, "booster.json")}
@@ -16,5 +17,9 @@ defmodule SpacexMissionApi.BoosterView do
       version: booster.version,
       images: render_many(booster.images, SpacexMissionApi.ImageView, "image.json")
     }
+  end
+
+  def render("booster_with_url.json", %{booster: booster}) do
+    Map.put(render("booster.json", %{booster: booster}), :url, booster_path(SpacexMissionApi.Endpoint, :show, booster.id))
   end
 end

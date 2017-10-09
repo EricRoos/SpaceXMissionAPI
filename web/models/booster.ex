@@ -1,5 +1,17 @@
 defmodule SpacexMissionApi.Booster do
   use SpacexMissionApi.Web, :model
+  use Filterable.Phoenix.Model
+
+  filterable do
+    filter status(query, value, _conn) do
+      query |> where(status: ^value)
+    end
+
+    filter version(query, value, _conn) do
+      query |> where(version: ^value)
+    end
+  end
+
   schema "boosters" do
     field :core_number, :string
     field :status, :string

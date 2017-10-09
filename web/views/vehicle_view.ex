@@ -13,7 +13,7 @@ defmodule SpacexMissionApi.VehicleView do
     if vehicle.rocket_configuration == "FalconNine" do
       %{
         name: vehicle.rocket_configuration,
-        booster: render_one(vehicle.booster_one, SpacexMissionApi.BoosterView, "booster.json")
+        booster: render_one(vehicle.booster_one, SpacexMissionApi.BoosterView, "booster_with_url.json")
       }
     else
       %{}
